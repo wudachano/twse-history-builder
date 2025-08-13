@@ -41,4 +41,4 @@ Date,Close
 
 ## License
 
-MIT License
+MIT License © 2025 Cheng-Tao Kang
