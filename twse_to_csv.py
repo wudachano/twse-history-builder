@@ -8,6 +8,7 @@
 import time
 import math
 import argparse
+from pathlib import Path
 from typing import List, Dict, Any
 
 import pandas as pd
@@ -20,6 +21,7 @@ DEFAULT_SYMBOLS = ["0050", "00830", "00670L"]
 LOOKBACK_YEARS = 10
 RETRY = 3
 SLEEP_SEC = 0.4  # 禮貌間隔
+OUT_DIR = Path(__file__).resolve().parent
 
 # ---------- 安全請求：先用 certifi 驗證，不行就臨時關閉驗證 ----------
 def safe_get(url: str, **kwargs) -> requests.Response:
@@ -121,7 +123,7 @@ def main(symbols: List[str], years: int):
         if df.empty:
             print(f"[ERROR] {sym} 沒抓到資料（可能是上市未滿期間或網路被擋）")
             continue
-        out = f"{sym}.csv"
+        out = OUT_DIR / f"{sym}.csv"
         df.to_csv(out, index=False)
         print(f"完成：{out}（{len(df)} 筆）")
 
